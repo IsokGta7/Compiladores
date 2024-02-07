@@ -8,8 +8,10 @@ typedef struct {
     int head;
     int tail;
 } CircularBuffer;
+
 int comentario=0;
 int bloquecomen=0;
+int comillas=0;
 void initBuffer(CircularBuffer *cbuf) {
     cbuf->head = 0;
     cbuf->tail = 0;
@@ -33,10 +35,25 @@ int enqueue(CircularBuffer *cbuf, int value) {
        comentario=1;
        //return Ignorado;
     }
-    // if (value=="'''"||value=='"""')
-    // {
-    //     bloquecomen=1;
-    // }
+    if (value=='"')
+    {
+        comillas++;
+        if (comillas==3)
+        {
+            bloquecomen= !bloquecomen;
+            comillas=0;
+            return Ignorado;
+        }
+        return Ignorado;
+    }else if (comillas>0)
+    {
+        comillas=0;
+    }
+    
+    if (bloquecomen==1)
+    {
+        return Ignorado;
+    }
     
     if (comentario==1)
     {   
