@@ -7,28 +7,28 @@ typedef struct {
     char buffer[SIZE];
     int head;
     int tail;
-} CircularBuffer;
+} BufferCircular;
 
 int comentario=0;
 int bloquecomen=0;
 int comillas=0;
-void initBuffer(CircularBuffer *cbuf) {
+void initBuffer(BufferCircular *cbuf) {
     cbuf->head = 0;
     cbuf->tail = 0;
 
 }
 
-int isBufferEmpty(const CircularBuffer *cbuf) {
+int BufferVacio(const BufferCircular *cbuf) {
     return (cbuf->head == cbuf->tail);
 }
 
-int isBufferFull(const CircularBuffer *cbuf) {
+int BufferLleno(const BufferCircular *cbuf) {
     return ((cbuf->tail + 1) % SIZE == cbuf->head);
 }
 
-int enqueue(CircularBuffer *cbuf, int value) {
+int enqueue(BufferCircular *cbuf, int value) {
     
-    if (isBufferFull(cbuf)) {
+    if (BufferLleno(cbuf)) {
         printf("Buffer lleno. No se puede encolar.\n");
     }
     if (value=='#'){
@@ -90,10 +90,10 @@ int enqueue(CircularBuffer *cbuf, int value) {
     // }
 }
 
-int dequeue(CircularBuffer *cbuf) {
+int dequeue(BufferCircular *cbuf) {
     int value = 0;
 
-    if (!isBufferEmpty(cbuf)) {
+    if (!BufferVacio(cbuf)) {
         value = cbuf->buffer[cbuf->head];
         cbuf->head = (cbuf->head + 1) % SIZE;
     } else {
@@ -104,7 +104,7 @@ int dequeue(CircularBuffer *cbuf) {
 }
 
 int main() {
-    CircularBuffer cbuf;
+    BufferCircular cbuf;
     initBuffer(&cbuf);
 
     FILE *file = fopen("archivo.txt", "r");
@@ -116,8 +116,8 @@ int main() {
     char ch;
     
     while ((ch = fgetc(file)) != EOF) {
-        if (isBufferFull(&cbuf)) {
-            while (!isBufferEmpty(&cbuf)) {
+        if (BufferLleno(&cbuf)) {
+            while (!BufferVacio(&cbuf)) {
                 printf("Desencolando: %c\n", dequeue(&cbuf));
             }
         }
@@ -130,7 +130,7 @@ int main() {
         }//enqueue(&cbuf, ch);
     }
 
-    while (!isBufferEmpty(&cbuf)) {
+    while (!BufferVacio(&cbuf)) {
         printf("Desencolando: %c\n", dequeue(&cbuf));
     }
 
@@ -148,3 +148,23 @@ int main() {
 //
 //  (a-z|A-Z)|_)+ (0-9|a-z|A-Z|_)* ( )*=   
 //  !(if|while|for|...)( )*=
+
+
+/*
+    /+
+    /-
+    /*
+    //
+    /=
+    /(
+    /)
+    /[
+    /]
+    /<
+    />
+    /,
+    /:
+    /!=
+    /==
+
+*/
