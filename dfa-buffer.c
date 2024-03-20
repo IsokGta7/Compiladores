@@ -2,6 +2,7 @@
 
 #define SIZE 5
 #define Ignorado -1
+#define x 41
 int esLetra(char c){
     return ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'));
 }
@@ -23,10 +24,57 @@ int TablaTransicionIden[][5] = {
 
 int EstadosAceptacionIden[] = {0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0};
 
+//Palabras
+int TablaTransicionPr[][19] = {
+      //i  f   s   m  p  o  r  t  F  a  l  e  T  u  d  c  w  h  n
+/*0*/  {1, 2,  x,  x, x, x, 3, x, 4, x, x, x, 5, x, 6, 7, 8, x, x},
+/*1*/  {x, 9, 10, 11, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x},
+/*2*/  {x, x,  x,  x, x, x, 12, x, x, x, x, x, x, x, x, x, x, x, x},
+/*3*/  {x, x,  x,  x, x, x, x, x, x, x, x, 13, x, x, x, x, x, x, x},
+/*4*/  {x, x,  x,  x, x, x, x, x, x, 14, x, x, x, x, x, x, x, x, x},
+/*5*/  {x, x,  x,  x, x, x, 15, x, x, x, x, x, x, x, x, x, x, x, x},
+/*6*/  {x, x,  x,  x, x, x, x, x, x, x, x, 16, x, x, x, x, x, x, x},
+/*7*/  {x, x,  x,  x, x, x, x, x, x, x, 17, x, x, x, x, x, x, x, x},
+/*8*/  {x, x,  x,  x, x, x, x, x, x, x, x, x, x, x, x, x, x, 18, x},
+/*9*/  {x, x,  x,  x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x},
+/*10*/ {x, x,  x,  x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x},
+/*11*/ {x, x,  x,  x, 19, x, x, x, x, x, x, x, x, x, x, x, x, x, x},
+/*12*/ {x, x,  x,  x, x, 20, x, x, x, x, x, x, x, x, x, x, x, x, x},
+/*13*/ {x, x,  x,  x, x, x, x, 21, x, x, x, x, x, x, x, x, x, x, x},
+/*14*/ {x, x,  x,  x, x, x, x, x, x, x, 22, x, x, x, x, x, x, x, x},
+/*15*/ {x, x,  x,  x, x, x, x, x, x, x, x, x, x, 23, x, x, x, x, x},
+/*16*/ {x, 24,  x,  x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x},
+/*17*/ {x, x,  x,  x, x, x, x, x, x, 25, x, x, x, x, x, x, x, x, x},
+/*18*/ {26, x,  x,  x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x},
+/*19*/ {x, x,  x,  x, x, 27, x, x, x, x, x, x, x, x, x, x, x, x, x},
+/*20*/ {x, x,  x,  28, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x},
+/*21*/ {x, x,  x,  x, x, x, x, x, x, x, x, x, x, 29, x, x, x, x, x},
+/*22*/ {x, x,  30,  x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x},
+/*23*/ {x, x,  x,  x, x, x, x, x, x, x, x, 31, x, x, x, x, x, x, x},
+/*24*/ {x, x,  x,  x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x},
+/*25*/ {x, x,  32,  x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x},
+/*26*/ {x, x,  x,  x, x, x, x, x, x, x, 33, x, x, x, x, x, x, x, x},
+/*27*/ {x, x,  x,  x, x, x, 34, x, x, x, x, x, x, x, x, x, x, x, x},
+/*28*/ {x, x,  x,  x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x},
+/*29*/ {x, x,  x,  x, x, x, 35, x, x, x, x, x, x, x, x, x, x, x, x},
+/*30*/ {x, x,  x,  x, x, x, x, x, x, x, x, 36, x, x, x, x, x, x, x},
+/*31*/ {x, x,  x,  x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x},
+/*32*/ {x, x,  37,  x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x},
+/*33*/ {x, x,  x,  x, x, x, x, x, x, x, x, 38, x, x, x, x, x, x, x},
+/*34*/ {x, x,  x,  x, x, x, x, 39, x, x, x, x, x, x, x, x, x, x, x},
+/*35*/ {x, x,  x,  x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, 40},
+/*36*/ {x, x,  x,  x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x},
+/*37*/ {x, x,  x,  x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x},
+/*38*/ {x, x,  x,  x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x},
+/*39*/ {x, x,  x,  x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x},
+/*40*/ {x, x,  x,  x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x},
+/*41*/ {x, x,  x,  x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x}};
+
+int EstadosAceptacionPr[] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0
+};
+
 int simulaDFA(int state,char input)
-{
-    
-    
+{ 
         int inputIndex;
         
         if(esLetra(input))
@@ -45,7 +93,7 @@ int simulaDFA(int state,char input)
             inputIndex = 4;
         }else
         {   
-            printf("Caracter no reconocido: %c\n", input);
+            //printf("Caracter no reconocido: %c\n", input);
             return 10;
         }
         
@@ -53,6 +101,78 @@ int simulaDFA(int state,char input)
     
     return state;
 }
+int simulaDFA_Pr(int state,char input)
+{
+    int inputIndex;
+    
+    switch(input) {
+        case 'i':
+            inputIndex = 0;
+            break;
+        case 'f':
+            inputIndex = 1;
+            break;
+        case 's':
+            inputIndex = 2;
+            break;
+        case 'm':
+            inputIndex = 3;
+            break;
+        case 'p':
+            inputIndex = 4;
+            break;
+        case 'o':
+            inputIndex = 5;
+            break;
+        case 'r':
+            inputIndex = 6;
+            break;
+        case 't':
+            inputIndex = 7;
+            break;
+        case 'F':
+            inputIndex = 8;
+            break;
+        case 'a':
+            inputIndex = 9;
+            break;
+        case 'l':
+            inputIndex = 10;
+            break;
+        case 'e':
+            inputIndex = 11;
+            break;
+        case 'T':
+            inputIndex = 12;
+            break;
+        case 'u':
+            inputIndex = 13;
+            break;
+        case 'd':
+            inputIndex = 14;
+            break;
+        case 'c':
+            inputIndex = 15;
+            break;
+        case 'w':
+            inputIndex = 16;
+            break;
+        case 'h':
+            inputIndex = 17;
+            break;
+        case 'n':
+            inputIndex = 18;
+            break;
+        default:
+            //printf("Caracter no reconocido: %c\n", input);
+            return 41;
+    }
+    
+    state = TablaTransicionPr[state][inputIndex];
+    
+    return state;
+}
+
 typedef struct
 {
     char buffer[SIZE];
@@ -188,7 +308,8 @@ int main()
     }
 
     char ch;
-    int state = 0;
+    int stateIden = 0;
+    int statePr = 0;
     while ((ch = fgetc(file)) != EOF)
     {
         if (BufferLleno(&cbuf))
@@ -204,14 +325,26 @@ int main()
         if (resultado != Ignorado)
         {
             //printf("%c\n", resultado);
-            //printf("Encolando: %c\n", resultado);
-            state = simulaDFA(state, resultado);
+            printf("Encolando: %c\n", resultado);
+            stateIden = simulaDFA(stateIden, resultado);
+            statePr = simulaDFA_Pr(statePr, resultado);
         }
 
         if (ch == '\n')
         {
-            printf("Resultado: %s\n", (EstadosAceptacionIden[state] == 1)? "Identificador" : "Rechazado");
-            state = 0;
+            if (EstadosAceptacionIden[stateIden] == 1)
+            {
+                printf("Identificador\n");
+            }else if (EstadosAceptacionPr[statePr] == 1)
+            {
+                printf("Palabra reservada\n");
+            }else
+            {
+                printf("Rechazado\n");
+            }
+            
+            stateIden = 0;
+            statePr = 0;
         }
         
     }
@@ -221,7 +354,17 @@ int main()
         //printf("Desencolando: %c\n", dequeue(&cbuf));
         dequeue(&cbuf);
     }
-    printf("Resultado: %s\n", (EstadosAceptacionIden[state] == 1)? "Identificador" : "Rechazado");
+    if (EstadosAceptacionIden[stateIden] == 1)
+            {
+                printf("Identificador\n");
+            }else if (EstadosAceptacionPr[statePr] == 1)
+            {
+                printf("Palabra reservada\n");
+            }else
+            {
+                printf("Rechazado\n");
+            }
+
     fclose(file);
     return 0;
 }
